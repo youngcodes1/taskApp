@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:taskmasta/Provider/bottomnav_provider.dart';
 import 'package:taskmasta/Provider/task_provider.dart';
+import 'package:taskmasta/Provider/utils_provider.dart';
 
 import 'BoxStorage/boxstorage.dart';
 import 'Provider/user_provider.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider(create: (_) => BottomNavProvider()),
         ChangeNotifierProvider(create: (_) => TaskProvider()),
+        ChangeNotifierProvider(create: (_) => UtilsProvider()),
       ],
       child: GetMaterialApp(
         title: 'Flutter Demo',
