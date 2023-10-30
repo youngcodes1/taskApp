@@ -8,4 +8,18 @@ class UtilsProvider extends ChangeNotifier {
     _selectedOption = option!;
     notifyListeners();
   }
+
+  getGreeting() {
+    DateTime now = DateTime.now();
+    int hour = now.hour;
+    String greeting;
+    if (hour < 12) {
+      greeting = 'Good morning';
+    } else if (hour < 17) {
+      greeting = 'Good afternoon';
+    } else {
+      greeting = 'Good evening';
+    }
+    return greeting;
+  }
 }

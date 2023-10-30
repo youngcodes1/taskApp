@@ -8,6 +8,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final TextStyle titleTextStyle;
   final IconThemeData? iconTheme;
   final bool centerTitle;
+  final bool automaticallyImplyLeading;
+  final double? toolbarHeight;
   const CustomAppBar({
     Key? key,
     required this.title,
@@ -15,8 +17,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.leading,
     required this.backgroundColor,
     required this.titleTextStyle,
+    this.toolbarHeight,
     this.iconTheme,
     this.centerTitle = false,
+    this.automaticallyImplyLeading = true,
   }) : super(key: key);
 
   @override
@@ -27,8 +31,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: leading,
       backgroundColor: backgroundColor,
       titleTextStyle: titleTextStyle,
+      toolbarHeight: toolbarHeight,
       iconTheme: iconTheme,
       centerTitle: centerTitle,
+      automaticallyImplyLeading: automaticallyImplyLeading,
     );
   }
 

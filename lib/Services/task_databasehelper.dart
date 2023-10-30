@@ -27,8 +27,9 @@ class TaskDatabaseHelper {
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             title TEXT NOT NULL,
             description TEXT NOT NULL,
-            category TEXT NOT NULL
-            created_at DATETIME
+            category TEXT NOT NULL,
+            createdDate TEXT NOT NULL,
+            createdTime TEXT NOT NULL
           )
           ''');
   }

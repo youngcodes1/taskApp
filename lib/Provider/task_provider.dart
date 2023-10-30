@@ -14,33 +14,37 @@ class TaskProvider extends ChangeNotifier {
   bool _loading = false;
   bool get loading => _loading;
 
-  addTask(String title, String description, String category) async {
+  addTask(String title, String description, String category, String createdDate,
+      String createdTime) async {
     try {
       _loading = true;
       notifyListeners();
-      final currentTime = DateTime.now();
+      // final currentTime = DateTime.now();
       final newTask = Task(
-          title: title,
-          description: description,
-          category: category,
-          createdAt: currentTime);
-      bool inserted = await _taskDatabaseHelper.insertTask(newTask);
+        title: title,
+        description: description,
+        category: category,
+        createdDate: createdDate,
+        createdTime: createdTime,
+      );
+      // bool inserted =
+      await _taskDatabaseHelper.insertTask(newTask);
       _loading = false;
       notifyListeners();
-      if (inserted) {
-        QuickAlert.show(
-          context: Get.context!,
-          type: QuickAlertType.success,
-          text: 'Task added Successfully!',
-        );
-      } else {
-        QuickAlert.show(
-          context: Get.context!,
-          type: QuickAlertType.error,
-          title: 'Oops...',
-          text: 'Sorry, an error occured',
-        );
-      }
+      // if (inserted) {
+      QuickAlert.show(
+        context: Get.context!,
+        type: QuickAlertType.success,
+        text: 'Task added Successfully!',
+      );
+      // } else {
+      //   QuickAlert.show(
+      //     context: Get.context!,
+      //     type: QuickAlertType.error,
+      //     title: 'Oops...',
+      //     text: 'Sorry, an error occured',
+      //   );
+      // }
       notifyListeners();
     } catch (e) {
       debugPrint(e.toString());
@@ -59,16 +63,19 @@ class TaskProvider extends ChangeNotifier {
     }
   }
 
-  updateTasks(String title, String description, String category) async {
+  updateTasks(String title, String description, String category,
+      String createdDate, String createdTime) async {
     try {
       _loading = true;
       notifyListeners();
-      final currentTime = DateTime.now();
+      // final currentTime = DateTime.now();
       final updatedTask = Task(
-          title: title,
-          description: description,
-          category: category,
-          createdAt: currentTime);
+        title: title,
+        description: description,
+        category: category,
+        createdDate: createdDate,
+        createdTime: createdTime,
+      );
       bool updated = await _taskDatabaseHelper.updateTask(updatedTask);
       _loading = false;
       notifyListeners();

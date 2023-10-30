@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
+import 'package:taskmasta/Provider/bottomnav_provider.dart';
 import 'package:taskmasta/Screens/Pages/TaskPages/add_task.dart';
 
 import '../../../Provider/user_provider.dart';
@@ -42,8 +43,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    String greeting = getGreeting();
+    // String greeting = getGreeting();
     final userprovider = Provider.of<UserProvider>(context);
+    final bottomprovider = Provider.of<BottomNavProvider>(context);
     return Scaffold(
       appBar: const CustomAppBar(
         backgroundColor: Colors.purple,
@@ -57,86 +59,68 @@ class _HomePageState extends State<HomePage> {
         titleTextStyle: TextStyle(
             fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold),
       ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Container(
-              decoration: const BoxDecoration(
-                  color: Colors.purple,
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20))),
-              height: 100,
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Column(
-                        children: [
-                          // Row(
-                          //   children: [
-                          //     Icon(
-                          //       Icons.task,
-                          //       size: 30,
-                          //       color: Colors.white,
-                          //     ),
-                          //     SizedBox(
-                          //       width: 5,
-                          //     ),
-                          //     Text(
-                          //       ' TaskMasta',
-                          //       style: TextStyle(
-                          //           color: Colors.white,
-                          //           fontSize: 22,
-                          //           fontWeight: FontWeight.bold),
-                          //     ),
-                          //   ],
-                          // ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                '👋Welcome,',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                ' Silas',
-                                style: TextStyle(
-                                    fontSize: 18, color: Colors.white),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                      IconButton(
-                          onPressed: () {
-                            QuickAlert.show(
-                              context: context,
-                              type: QuickAlertType.confirm,
-                              headerBackgroundColor: Colors.purple,
-                              text: 'Do you want to logout',
-                              confirmBtnText: 'Yes',
-                              cancelBtnText: 'No',
-                              confirmBtnColor: Colors.green,
-                              onConfirmBtnTap: () {
-                                userprovider.logoutUser();
-                              },
-                            );
-                          },
-                          icon: const Icon(
-                            Icons.logout,
-                            color: Colors.white,
-                          ))
-                    ]),
-              ),
+      body: Column(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+                color: Colors.purple,
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20))),
+            height: 100,
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Column(
+                      children: [
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              '👋Hi,',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              ' Silas',
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.white),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                    IconButton(
+                        onPressed: () {
+                          QuickAlert.show(
+                            context: context,
+                            type: QuickAlertType.confirm,
+                            headerBackgroundColor: Colors.purple,
+                            text: 'Do you want to logout',
+                            confirmBtnText: 'Yes',
+                            cancelBtnText: 'No',
+                            confirmBtnColor: Colors.green,
+                            onConfirmBtnTap: () {
+                              userprovider.logoutUser();
+                            },
+                          );
+                        },
+                        icon: const Icon(
+                          Icons.logout,
+                          color: Colors.white,
+                        ))
+                  ]),
             ),
-            SingleChildScrollView(
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 20.0),
+            child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
@@ -233,8 +217,25 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.05,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('Today'),
+                TextButton(
+                    onPressed: () {
+                      bottomprovider.updateIndex(0);
+                    },
+                    child: const Text('View All'))
+              ],
+            ),
+          )
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

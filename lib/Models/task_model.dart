@@ -3,14 +3,16 @@ class Task {
   final String title;
   final String description;
   final String category;
-  final DateTime createdAt;
+  final String createdDate;
+  final String createdTime;
 
   Task({
     this.id,
     required this.title,
     required this.description,
     required this.category,
-    required this.createdAt,
+    required this.createdDate,
+    required this.createdTime,
   });
 
   Map<String, dynamic> toMap() {
@@ -19,7 +21,8 @@ class Task {
       'title': title,
       'description': description,
       'category': category,
-      'created_at': createdAt.toIso8601String(),
+      'createdDate': createdDate,
+      'createdTime': createdTime
     };
   }
 
@@ -29,7 +32,8 @@ class Task {
       title: map['title'],
       description: map['description'],
       category: map['category'],
-      createdAt: DateTime.parse(map['created_at']),
+      createdDate: map['createdDate'],
+      createdTime: map['createdTime'],
     );
   }
 }

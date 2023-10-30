@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:taskmasta/Widgets/custom_appbar.dart';
+
+import '../TabarPages/alltasks.dart';
+import '../TabarPages/report.dart';
 
 class PerformancePage extends StatefulWidget {
   const PerformancePage({super.key});
@@ -10,6 +14,43 @@ class PerformancePage extends StatefulWidget {
 class _PerformancePageState extends State<PerformancePage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return const DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: CustomAppBar(
+            title: 'Performance',
+            backgroundColor: Colors.purple,
+            centerTitle: true,
+            automaticallyImplyLeading: false,
+            titleTextStyle: TextStyle(fontSize: 25, color: Colors.white)),
+        body: Column(
+          children: [
+            SizedBox(
+              height: 20,
+            ),
+            TabBar(
+              labelStyle: TextStyle(fontSize: 16),
+              labelColor: Colors.purple,
+              indicatorColor: Colors.purple,
+              // unselectedLabelColor: Colors.grey,
+              tabs: [
+                Tab(
+                  text: 'All Tasks',
+                ),
+                Tab(
+                  text: 'Report',
+                )
+              ],
+            ),
+            Expanded(
+              child: TabBarView(children: [
+                AllTasks(),
+                ReportPage(),
+              ]),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

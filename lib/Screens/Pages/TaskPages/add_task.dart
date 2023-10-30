@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:taskmasta/Widgets/custom_button.dart';
+import '../../../Provider/task_provider.dart';
 import '../../../Utils/colors.dart';
 import '../../../Widgets/custom_appbar.dart';
 import '../../../Widgets/custom_dropdown.dart';
@@ -17,8 +19,8 @@ class _AddTaskPageState extends State<AddTaskPage> {
   final _formkey = GlobalKey<FormState>();
   TextEditingController title = TextEditingController();
   TextEditingController description = TextEditingController();
-  TextEditingController date = TextEditingController();
-  TextEditingController time = TextEditingController();
+  TextEditingController createdDate = TextEditingController();
+  TextEditingController createdTime = TextEditingController();
   // when you are passing the controller you will pass selectedCategory for the category option
   String selectedCategory = '';
   DateTime? selectedDate;
@@ -35,7 +37,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
 
     if (selectedTime != null) {
       setState(() {
-        time.text = selectedTime.format(context);
+        createdTime.text = selectedTime.format(context);
       });
     }
   }
@@ -49,7 +51,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
 
     if (picked != null) {
       setState(() {
-        date.text = DateFormat.yMMMd().format(picked);
+        createdDate.text = DateFormat.yMMMd().format(picked);
       });
     }
   }
@@ -58,11 +60,14 @@ class _AddTaskPageState extends State<AddTaskPage> {
   void dispose() {
     title.dispose();
     description.dispose();
+    createdDate.dispose();
+    createdTime.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final taskprovider = Provider.of<TaskProvider>(context);
     return Scaffold(
         appBar: CustomAppBar(
           title: 'ADD TASK',
@@ -192,7 +197,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.4,
                               child: CustomTextFormField(
-                                controller: date,
+                                controller: createdDate,
                                 labelText: 'select a date',
                                 prefixIcon: IconButton(
                                   onPressed: () {
@@ -227,7 +232,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                             SizedBox(
                                 width: MediaQuery.of(context).size.width * 0.4,
                                 child: CustomTextFormField(
-                                  controller: time,
+                                  controller: createdTime,
                                   labelText: 'select time',
                                   prefixIcon: IconButton(
                                     onPressed: () {
@@ -255,7 +260,19 @@ class _AddTaskPageState extends State<AddTaskPage> {
                     CustomButton(
                         label: 'Add task',
                         color: Colors.purple,
-                        onPressed: () {}),
+                        loading: taskprovider.loading,
+                        onPressed: taskprovider.loading
+                            ? () {}
+                            : () {
+                                if (_formkey.currentState!.validate()) {
+                                  taskprovider.addTask(
+                                      title.text,
+                                      description.text,
+                                      selectedCategory,
+                                      createdDate.text,
+                                      createdTime.text);
+                                }
+                              }),
                   ],
                 ),
               ),
