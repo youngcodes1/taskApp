@@ -39,7 +39,9 @@ dependencies:
   shared_preferences:
   get:
   quickalert:
-  intl: 
+  intl:
+  flutter_slidable:
+  syncfusion_flutter_charts:
 
 dev_dependencies:
   flutter_test:

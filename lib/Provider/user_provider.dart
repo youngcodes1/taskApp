@@ -39,6 +39,7 @@ class UserProvider extends ChangeNotifier {
       ScaffoldMessenger.of(Get.context!).showSnackBar(
         const SnackBar(content: Text('Signed up Successfully')),
       );
+      Get.to(const LoginScreen());
 
       _loading = false;
       notifyListeners();

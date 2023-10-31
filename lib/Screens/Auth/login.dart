@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final userprovider = Provider.of<UserProvider>(context);
     return Scaffold(
-      body: ListView(
+      body: Column(
         children: [
           Container(
             decoration: const BoxDecoration(
@@ -48,109 +48,115 @@ class _LoginScreenState extends State<LoginScreen> {
           const SizedBox(
             height: 30,
           ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Form(
-              key: _formkey,
-              child: Column(
-                children: [
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'LOGIN',
-                        style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Baloo2'),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Icon(
-                        Icons.login_rounded,
-                        size: 35,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  CustomTextFormField(
-                    prefixIcon: const Icon(Icons.email),
-                    controller: email,
-                    labelText: 'Email',
-                    suffixIcon: TextButton(
-                        onPressed: () {
-                          email.clear();
-                        },
-                        child: const Icon(Icons.cancel)),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'email is required';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  CustomTextFormField(
-                    prefixIcon: const Icon(Icons.lock),
-                    controller: password,
-                    labelText: 'password',
-                    isPassword: true,
-                    suffixIcon: TextButton(
-                        onPressed: () {
-                          password.clear();
-                        },
-                        child: const Icon(Icons.cancel)),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'password is required';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  CustomButton(
-                    label: 'Login',
-                    loading: userprovider.loading,
-                    onPressed: userprovider.loading
-                        ? () {}
-                        : () async {
-                            if (_formkey.currentState!.validate()) {
-                              await userprovider.loginUser(
-                                  email.text, password.text);
+          Expanded(
+            child: ListView(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Form(
+                    key: _formkey,
+                    child: Column(
+                      children: [
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'LOGIN',
+                              style: TextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Baloo2'),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Icon(
+                              Icons.login_rounded,
+                              size: 35,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        CustomTextFormField(
+                          prefixIcon: const Icon(Icons.email),
+                          controller: email,
+                          labelText: 'Email',
+                          suffixIcon: TextButton(
+                              onPressed: () {
+                                email.clear();
+                              },
+                              child: const Icon(Icons.cancel)),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'email is required';
                             }
+                            return null;
                           },
-                    color: Colors.purple,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'Dont have an account?',
-                        style: TextStyle(fontSize: 14),
-                      ),
-                      TextButton(
-                          onPressed: () {
-                            Get.to(const SignUpScreen());
+                        ),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        CustomTextFormField(
+                          prefixIcon: const Icon(Icons.lock),
+                          controller: password,
+                          labelText: 'password',
+                          isPassword: true,
+                          suffixIcon: TextButton(
+                              onPressed: () {
+                                password.clear();
+                              },
+                              child: const Icon(Icons.cancel)),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'password is required';
+                            }
+                            return null;
                           },
-                          child: const Text(
-                            'SignUp',
-                            style:
-                                TextStyle(color: Colors.purple, fontSize: 16),
-                          ))
-                    ],
-                  )
-                ],
-              ),
+                        ),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        CustomButton(
+                          label: 'Login',
+                          loading: userprovider.loading,
+                          onPressed: userprovider.loading
+                              ? () {}
+                              : () async {
+                                  if (_formkey.currentState!.validate()) {
+                                    await userprovider.loginUser(
+                                        email.text, password.text);
+                                  }
+                                },
+                          color: Colors.purple,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              'Dont have an account?',
+                              style: TextStyle(fontSize: 14),
+                            ),
+                            TextButton(
+                                onPressed: () {
+                                  Get.to(const SignUpScreen());
+                                },
+                                child: const Text(
+                                  'SignUp',
+                                  style: TextStyle(
+                                      color: Colors.purple, fontSize: 16),
+                                ))
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],

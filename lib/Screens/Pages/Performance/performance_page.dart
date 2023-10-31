@@ -22,7 +22,10 @@ class _PerformancePageState extends State<PerformancePage> {
             backgroundColor: Colors.purple,
             centerTitle: true,
             automaticallyImplyLeading: false,
-            titleTextStyle: TextStyle(fontSize: 25, color: Colors.white)),
+            titleTextStyle: TextStyle(
+                fontSize: 25,
+                color: Colors.white,
+                fontWeight: FontWeight.bold)),
         body: Column(
           children: [
             SizedBox(

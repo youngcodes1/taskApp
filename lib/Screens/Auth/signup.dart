@@ -34,7 +34,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     final userprovider = Provider.of<UserProvider>(context);
     return Scaffold(
-      body: ListView(
+      body: Column(
         children: [
           Container(
             decoration: const BoxDecoration(
@@ -52,155 +52,161 @@ class _SignUpScreenState extends State<SignUpScreen> {
           const SizedBox(
             height: 30,
           ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Form(
-              key: _formkey,
-              child: Column(
-                children: [
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.person,
-                        size: 35,
-                      ),
-                      Text(
-                        'SIGNUP',
-                        style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Baloo2'),
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  CustomTextFormField(
-                    prefixIcon: const Icon(Icons.person),
-                    controller: username,
-                    labelText: 'Username',
-                    suffixIcon: TextButton(
-                        onPressed: () {
-                          username.clear();
-                        },
-                        child: const Icon(Icons.cancel)),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'username is required';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  CustomTextFormField(
-                    prefixIcon: const Icon(Icons.email),
-                    controller: email,
-                    labelText: 'Email',
-                    suffixIcon: TextButton(
-                        onPressed: () {
-                          email.clear();
-                        },
-                        child: const Icon(Icons.cancel)),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'email is required';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  CustomTextFormField(
-                    prefixIcon: const Icon(Icons.lock),
-                    controller: password,
-                    labelText: 'password',
-                    isPassword: true,
-                    suffixIcon: TextButton(
-                        onPressed: () {
-                          password.clear();
-                        },
-                        child: const Icon(Icons.cancel)),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'password is required';
-                      }
-                      if (value.length < 6) {
-                        return 'Password must be at least 6 characters';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  CustomTextFormField(
-                    prefixIcon: const Icon(Icons.lock),
-                    controller: confirm,
-                    isPassword: true,
-                    labelText: 'Confirm password',
-                    suffixIcon: TextButton(
-                        onPressed: () {
-                          confirm.clear();
-                        },
-                        child: const Icon(Icons.cancel)),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'confirm password is required';
-                      }
-                      if (value != password.text) {
-                        return 'Passwords do not match';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  CustomButton(
-                    label: 'SignUp',
-                    loading: userprovider.loading,
-                    onPressed: userprovider.loading
-                        ? () {}
-                        : () async {
-                            if (_formkey.currentState!.validate()) {
-                              await userprovider.signupUser(
-                                  username.text, email.text, password.text);
-
-                              // _formkey.currentState?.reset();
+          Expanded(
+            child: ListView(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Form(
+                    key: _formkey,
+                    child: Column(
+                      children: [
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.person,
+                              size: 35,
+                            ),
+                            Text(
+                              'SIGNUP',
+                              style: TextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Baloo2'),
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        CustomTextFormField(
+                          prefixIcon: const Icon(Icons.person),
+                          controller: username,
+                          labelText: 'Username',
+                          suffixIcon: TextButton(
+                              onPressed: () {
+                                username.clear();
+                              },
+                              child: const Icon(Icons.cancel)),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'username is required';
                             }
+                            return null;
                           },
-                    color: Colors.purple,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'Already have an account?',
-                        style: TextStyle(fontSize: 14),
-                      ),
-                      TextButton(
-                          onPressed: () {
-                            Get.to(const LoginScreen());
+                        ),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        CustomTextFormField(
+                          prefixIcon: const Icon(Icons.email),
+                          controller: email,
+                          labelText: 'Email',
+                          suffixIcon: TextButton(
+                              onPressed: () {
+                                email.clear();
+                              },
+                              child: const Icon(Icons.cancel)),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'email is required';
+                            }
+                            return null;
                           },
-                          child: const Text(
-                            'Login',
-                            style:
-                                TextStyle(color: Colors.purple, fontSize: 16),
-                          ))
-                    ],
-                  )
-                ],
-              ),
+                        ),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        CustomTextFormField(
+                          prefixIcon: const Icon(Icons.lock),
+                          controller: password,
+                          labelText: 'password',
+                          isPassword: true,
+                          suffixIcon: TextButton(
+                              onPressed: () {
+                                password.clear();
+                              },
+                              child: const Icon(Icons.cancel)),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'password is required';
+                            }
+                            if (value.length < 6) {
+                              return 'Password must be at least 6 characters';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        CustomTextFormField(
+                          prefixIcon: const Icon(Icons.lock),
+                          controller: confirm,
+                          isPassword: true,
+                          labelText: 'Confirm password',
+                          suffixIcon: TextButton(
+                              onPressed: () {
+                                confirm.clear();
+                              },
+                              child: const Icon(Icons.cancel)),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'confirm password is required';
+                            }
+                            if (value != password.text) {
+                              return 'Passwords do not match';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        CustomButton(
+                          label: 'SignUp',
+                          loading: userprovider.loading,
+                          onPressed: userprovider.loading
+                              ? () {}
+                              : () async {
+                                  if (_formkey.currentState!.validate()) {
+                                    await userprovider.signupUser(username.text,
+                                        email.text, password.text);
+
+                                    // _formkey.currentState?.reset();
+                                  }
+                                },
+                          color: Colors.purple,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              'Already have an account?',
+                              style: TextStyle(fontSize: 14),
+                            ),
+                            TextButton(
+                                onPressed: () {
+                                  Get.to(const LoginScreen());
+                                },
+                                child: const Text(
+                                  'Login',
+                                  style: TextStyle(
+                                      color: Colors.purple, fontSize: 16),
+                                ))
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              ],
             ),
-          )
+          ),
         ],
       ),
     );
