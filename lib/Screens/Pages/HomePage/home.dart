@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:taskmasta/Provider/bottomnav_provider.dart';
+import 'package:taskmasta/Provider/utils_provider.dart';
 import 'package:taskmasta/Screens/Pages/TaskPages/add_task.dart';
 
 import '../../../Models/chart_model.dart';
+import '../../../Provider/chart_provider.dart';
 import '../../../Provider/user_provider.dart';
 import '../../../Widgets/chart.dart';
 import '../../../Widgets/custom_appbar.dart';
@@ -23,6 +26,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<ChartData>? data;
   TooltipBehavior? _tooltip;
+  String? user;
 
   void _showCustomBottomSheet(BuildContext context) {
     showModalBottomSheet(
@@ -34,8 +38,26 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  getUser() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      String? storedUser = prefs.getString('email');
+      if (storedUser != null) {
+        setState(() {
+          user = storedUser;
+        });
+
+        debugPrint('User Email: ${user}');
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
   @override
   void initState() {
+    super.initState();
+
     data = [
       ChartData('Todo', 25, color: Colors.orange),
       ChartData('Ongoing', 38, color: Colors.blue),
@@ -43,13 +65,14 @@ class _HomePageState extends State<HomePage> {
     ];
     _tooltip = TooltipBehavior(enable: true);
 
-    super.initState();
+    getUser();
   }
 
   @override
   Widget build(BuildContext context) {
     final userprovider = Provider.of<UserProvider>(context);
     final bottomprovider = Provider.of<BottomNavProvider>(context);
+    final utilsprovider = Provider.of<UtilsProvider>(context);
     return Scaffold(
       appBar: const CustomAppBar(
         backgroundColor: Colors.purple,
@@ -71,21 +94,21 @@ class _HomePageState extends State<HomePage> {
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(20),
                     bottomRight: Radius.circular(20))),
-            height: 100,
+            // height: 125,
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Column(
+                    Column(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         Row(
                           children: [
                             Text(
-                              '👋Welcome,',
+                              '👋Good ${utilsprovider.greeting}',
                               style: TextStyle(
                                   fontSize: 18,
                                   color: Colors.white,
@@ -93,11 +116,21 @@ class _HomePageState extends State<HomePage> {
                             ),
                             Text(
                               ' Silas',
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.white),
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
                             )
                           ],
                         ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        // Text(
+                        //   'Good ${utilsprovider.greeting}',
+                        //   style: const TextStyle(
+                        //       color: Colors.white, fontSize: 16),
+                        // )
                       ],
                     ),
                     IconButton(
@@ -106,7 +139,7 @@ class _HomePageState extends State<HomePage> {
                             context: context,
                             type: QuickAlertType.confirm,
                             headerBackgroundColor: Colors.purple,
-                            text: 'Do you want to logout',
+                            text: 'you want to logout',
                             confirmBtnText: 'Yes',
                             cancelBtnText: 'No',
                             confirmBtnColor: Colors.green,

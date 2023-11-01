@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 
 class UtilsProvider extends ChangeNotifier {
   String? _selectedOption;
+  String? _greeting;
   String? get selectedOption => _selectedOption;
+  String? get greeting => _greeting;
+
+  UtilsProvider() {
+    updateGreeting();
+  }
 
   setSelectedOption(String? option) {
     _selectedOption = option!;
@@ -10,16 +16,17 @@ class UtilsProvider extends ChangeNotifier {
   }
 
   getGreeting() {
-    DateTime now = DateTime.now();
-    int hour = now.hour;
-    String greeting;
+    final int hour = DateTime.now().hour;
     if (hour < 12) {
-      greeting = 'Good morning';
+      _greeting = 'Morning,';
     } else if (hour < 17) {
-      greeting = 'Good afternoon';
-    } else {
-      greeting = 'Good evening';
+      _greeting = 'Afternoon,';
     }
-    return greeting;
+    _greeting = 'Evening,';
+  }
+
+  updateGreeting() {
+    getGreeting();
+    notifyListeners();
   }
 }

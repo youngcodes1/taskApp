@@ -13,7 +13,9 @@ class UserProvider extends ChangeNotifier {
   final UserDatabaseHelper _userDatabaseHelper = UserDatabaseHelper.instance;
 
   bool _loading = false;
+  String? _user;
   bool get loading => _loading;
+  String? get user => _user;
 
   signupUser(String username, String email, String password) async {
     try {
@@ -57,6 +59,7 @@ class UserProvider extends ChangeNotifier {
       User? user = await _userDatabaseHelper.queryUser(email, password);
       final prefs = await SharedPreferences.getInstance();
       prefs.setString('email', email);
+
       if (user != null) {
         Get.to(const BottomNav());
       } else {
@@ -97,6 +100,20 @@ class UserProvider extends ChangeNotifier {
         const SnackBar(content: Text('logged out successfully')),
       );
       notifyListeners();
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  getUser() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      String? storedUser = prefs.getString('email');
+      if (storedUser != null) {
+        _user = storedUser;
+        print('User Email: ${user}');
+        notifyListeners();
+      }
     } catch (e) {
       debugPrint(e.toString());
     }

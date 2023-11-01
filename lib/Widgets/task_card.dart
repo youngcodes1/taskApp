@@ -35,7 +35,18 @@ class _TaskCardState extends State<TaskCard> {
             backgroundColor: Colors.red,
           ),
           SlidableAction(
-            onPressed: (context) => {},
+            onPressed: (context) => {
+              QuickAlert.show(
+                context: context,
+                type: QuickAlertType.confirm,
+                headerBackgroundColor: Colors.purple,
+                text: ' you want to mark as completed',
+                confirmBtnText: 'Yes',
+                cancelBtnText: 'No',
+                confirmBtnColor: Colors.green,
+                onConfirmBtnTap: () {},
+              )
+            },
             icon: Icons.verified,
             label: 'Completed',
             backgroundColor: Colors.green,
