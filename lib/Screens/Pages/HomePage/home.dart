@@ -43,11 +43,15 @@ class _HomePageState extends State<HomePage> {
       final prefs = await SharedPreferences.getInstance();
       String? storedUser = prefs.getString('email');
       if (storedUser != null) {
-        setState(() {
-          user = storedUser;
-        });
+        final nameMatch = RegExp(r'([^0-9@]+)').firstMatch(storedUser);
+        if (nameMatch != null) {
+          final name = nameMatch.group(0);
+          setState(() {
+            user = name;
+          });
 
-        debugPrint('User Email: ${user}');
+          debugPrint('User Name: $user');
+        }
       }
     } catch (e) {
       debugPrint(e.toString());
@@ -109,14 +113,14 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             Text(
                               '👋Good ${utilsprovider.greeting}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 18,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              ' Silas',
-                              style: TextStyle(
+                              ' $user',
+                              style: const TextStyle(
                                   fontSize: 18,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold),
