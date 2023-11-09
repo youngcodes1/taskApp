@@ -21,8 +21,9 @@ class UtilsProvider extends ChangeNotifier {
       _greeting = 'Morning,';
     } else if (hour < 17) {
       _greeting = 'Afternoon,';
+    } else {
+      _greeting = 'Evening,';
     }
-    _greeting = 'Evening,';
   }
 
   updateGreeting() {

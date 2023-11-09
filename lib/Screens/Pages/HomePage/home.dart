@@ -15,6 +15,7 @@ import '../../../Provider/user_provider.dart';
 import '../../../Widgets/chart.dart';
 import '../../../Widgets/custom_appbar.dart';
 import '../../../Widgets/task_card.dart';
+import '../../../Widgets/today_task_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -49,8 +50,6 @@ class _HomePageState extends State<HomePage> {
           setState(() {
             user = name;
           });
-
-          debugPrint('User Name: $user');
         }
       }
     } catch (e) {
@@ -162,155 +161,151 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(
             height: 20,
           ),
-          Expanded(
-            child: ListView(
-              children: [
-                Column(
-                  children: [
-                    SizedBox(
-                      child: Card(
-                          elevation: 10,
-                          shadowColor: Colors.purple,
-                          child: Container(
-                              height: MediaQuery.of(context).size.height * 0.18,
-                              width: MediaQuery.of(context).size.width * 0.9,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: SizedBox(
-                                  height: 180,
-                                  width: 180,
-                                  child: Chart(data)))),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          height: 100,
-                          width: 200,
-                          child: Card(
-                            elevation: 10,
-                            color: Colors.orange,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: const Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "3",
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: Colors.blue,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  "Todo",
-                                  style: TextStyle(
-                                      fontSize: 17, color: Colors.white),
-                                )
-                              ],
-                            ),
-                          ),
+          Column(
+            children: [
+              SizedBox(
+                child: Card(
+                    elevation: 10,
+                    shadowColor: Colors.purple,
+                    child: Container(
+                        height: MediaQuery.of(context).size.height * 0.18,
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
                         ),
-                        SizedBox(
-                          height: 100,
-                          width: 200,
-                          child: Card(
-                            elevation: 10,
-                            color: Colors.blue,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: const Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "5",
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: Colors.yellow,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  "Ongoing",
-                                  style: TextStyle(
-                                      fontSize: 17, color: Colors.white),
-                                )
-                              ],
-                            ),
+                        child: SizedBox(
+                            height: 180, width: 180, child: Chart(data)))),
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 20.0),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  SizedBox(
+                    height: 100,
+                    width: 200,
+                    child: Card(
+                      shadowColor: Colors.orange,
+                      elevation: 10,
+                      color: Colors.orange,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: const Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "3",
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold),
                           ),
-                        ),
-                        SizedBox(
-                          height: 100,
-                          width: 200,
-                          child: Card(
-                            elevation: 10,
-                            color: Colors.green,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: const Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "4",
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: Colors.orange,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  "Completed",
-                                  style: TextStyle(
-                                      fontSize: 17, color: Colors.white),
-                                )
-                              ],
-                            ),
+                          SizedBox(
+                            height: 10,
                           ),
-                        ),
-                      ],
+                          Text(
+                            "Todo",
+                            style: TextStyle(fontSize: 17, color: Colors.white),
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.05,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text('Today'),
-                      TextButton(
-                          onPressed: () {
-                            bottomprovider.updateIndex(0);
-                          },
-                          child: const Text('View All'))
-                    ],
+                  SizedBox(
+                    height: 100,
+                    width: 200,
+                    child: Card(
+                      shadowColor: Colors.blue,
+                      elevation: 10,
+                      color: Colors.blue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: const Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "5",
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.yellow,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            "Ongoing",
+                            style: TextStyle(fontSize: 17, color: Colors.white),
+                          )
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-                TaskCard(),
-                TaskCard(),
-                TaskCard(),
-              ],
+                  SizedBox(
+                    height: 100,
+                    width: 200,
+                    child: Card(
+                      shadowColor: Colors.green,
+                      elevation: 10,
+                      color: Colors.green,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: const Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "4",
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.orange,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            "Completed",
+                            style: TextStyle(fontSize: 17, color: Colors.white),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.05,
+          ),
+          Expanded(
+              child: ListView(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text('Today'),
+                    TextButton(
+                        onPressed: () {
+                          bottomprovider.updateIndex(0);
+                        },
+                        child: const Text('View All'))
+                  ],
+                ),
+              ),
+              // const TaskCard(),
+              TodayTaskCard(),
+            ],
+          ))
         ],
       ),
       floatingActionButton: FloatingActionButton(

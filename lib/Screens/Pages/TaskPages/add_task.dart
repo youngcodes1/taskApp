@@ -265,6 +265,11 @@ class _AddTaskPageState extends State<AddTaskPage> {
                             ? () {}
                             : () {
                                 if (_formkey.currentState!.validate()) {
+                                  // DateTime selectedDate =
+                                  //     DateTime.parse(createdDate.text);
+
+                                  // String formattedDate =
+                                  //     DateFormat.yMd().format(selectedDate);
                                   taskprovider.addTask(
                                       title.text,
                                       description.text,

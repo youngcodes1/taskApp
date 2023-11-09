@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:taskmasta/Widgets/custom_appbar.dart';
 
-import '../TabarPages/alltasks.dart';
-import '../TabarPages/report.dart';
+import '../TabarPages/AllTasksPages/alltasks.dart';
+import '../TabarPages/Report/report.dart';
 
 class PerformancePage extends StatefulWidget {
   const PerformancePage({super.key});

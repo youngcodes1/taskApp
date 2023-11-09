@@ -18,34 +18,55 @@ class TaskDatabaseHelper {
   Future<Database> _initDatabase() async {
     String documentsDirectory = await getDatabasesPath();
     String path = join(documentsDirectory, 'tasks.db');
-    return await openDatabase(path, version: 1, onCreate: _onCreate);
+    return await openDatabase(path, version: 2, onCreate: _onCreate);
   }
 
   Future _onCreate(Database db, int version) async {
     await db.execute('''
           CREATE TABLE tasks (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            title TEXT NOT NULL,
-            description TEXT NOT NULL,
-            category TEXT NOT NULL,
-            createdDate TEXT NOT NULL,
-            createdTime TEXT NOT NULL
+            title STRING ,
+            description TEXT ,
+            category STRING ,
+            createdDate STRING ,
+            createdTime STRING,
+            isCompleted INTEGER DEFAULT 0,
+            color INTEGER 
           )
           ''');
   }
 
-  insertTask(Task task) async {
+  Future<int> insertTask(Task task) async {
     final db = await database;
-    await db.insert(
+    return await db.insert(
       'tasks',
       task.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
-  Future<List<Task>> getTasks() async {
+  Future<List<Task>> getAllTasks() async {
     final db = await database;
-    final List<Map<String, dynamic>> maps = await db.query('tasks');
+    final List<Map<String, dynamic>> maps = await db.query(
+      'tasks',
+    );
+    return List.generate(maps.length, (i) {
+      return Task.fromMap(maps[i]);
+    });
+  }
+
+  // Future<List<Map<String, dynamic>>> getAllTasks() async {
+  //   final db = await database;
+  //   return await db.query('tasks');
+  // }
+
+  Future<List<Task>> getTodaysTask(String date) async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      'tasks',
+      where: 'createdDate = ?',
+      whereArgs: [date],
+    );
     return List.generate(maps.length, (i) {
       return Task.fromMap(maps[i]);
     });
@@ -68,5 +89,6 @@ class TaskDatabaseHelper {
       where: 'id = ?',
       whereArgs: [id],
     );
+    getAllTasks();
   }
 }

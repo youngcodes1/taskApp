@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:taskmasta/Services/task_databasehelper.dart';
@@ -11,6 +12,9 @@ class TaskProvider extends ChangeNotifier {
 
   List<Task> _tasks = [];
   List<Task> get tasks => _tasks;
+  List<Task> _taskAddedToday = [];
+  List<Task> get taskAddedToday => _taskAddedToday;
+
   bool _loading = false;
   bool get loading => _loading;
 
@@ -20,6 +24,7 @@ class TaskProvider extends ChangeNotifier {
       _loading = true;
       notifyListeners();
       // final currentTime = DateTime.now();
+
       final newTask = Task(
         title: title,
         description: description,
@@ -29,22 +34,17 @@ class TaskProvider extends ChangeNotifier {
       );
       // bool inserted =
       await _taskDatabaseHelper.insertTask(newTask);
+      await fetchTasksForToday();
       _loading = false;
       notifyListeners();
       // if (inserted) {
+      Get.back();
       QuickAlert.show(
         context: Get.context!,
         type: QuickAlertType.success,
         text: 'Task added Successfully!',
       );
-      // } else {
-      //   QuickAlert.show(
-      //     context: Get.context!,
-      //     type: QuickAlertType.error,
-      //     title: 'Oops...',
-      //     text: 'Sorry, an error occured',
-      //   );
-      // }
+
       notifyListeners();
     } catch (e) {
       debugPrint(e.toString());
@@ -53,13 +53,36 @@ class TaskProvider extends ChangeNotifier {
     }
   }
 
-  fetchAllTasks() async {
+  Future<void> fetchAllTasks() async {
     try {
-      List<Task> taskList = await _taskDatabaseHelper.getTasks();
+      _loading = true;
+      notifyListeners();
+      final List<Task> taskList = await _taskDatabaseHelper.getAllTasks();
+      _loading = false;
       _tasks = taskList;
       notifyListeners();
     } catch (e) {
       debugPrint(e.toString());
+      _loading = false;
+    }
+  }
+
+  Future<List<Task>> fetchTasksForToday() async {
+    try {
+      _loading = true;
+      final today = DateTime.now();
+      final formattedDate = DateFormat('yyyy-MM-dd').format(today);
+      List<Task> taskMaps =
+          await _taskDatabaseHelper.getTodaysTask(formattedDate);
+      _taskAddedToday = taskMaps
+          .map((taskMap) => Task.fromMap(taskMap as Map<String, dynamic>))
+          .toList();
+      _loading = false;
+      notifyListeners();
+      return _taskAddedToday;
+    } catch (e) {
+      debugPrint(e.toString());
+      return [];
     }
   }
 
@@ -101,24 +124,17 @@ class TaskProvider extends ChangeNotifier {
     }
   }
 
-  delete(int id) async {
+  delete(int index) async {
     try {
-      bool deleted = await _taskDatabaseHelper.deleteTask(id);
-      if (deleted) {
-        QuickAlert.show(
-          context: Get.context!,
-          type: QuickAlertType.success,
-          text: 'Task deleted Successfully!',
-        );
-      } else {
-        QuickAlert.show(
-          context: Get.context!,
-          type: QuickAlertType.error,
-          title: 'Oops...',
-          text: 'Sorry, an error occured',
-        );
-      }
+      await _taskDatabaseHelper.deleteTask(_tasks[index].id!);
+      _tasks.removeAt(index);
+
       notifyListeners();
+      QuickAlert.show(
+        context: Get.context!,
+        type: QuickAlertType.success,
+        text: 'Task deleted Successfully!',
+      );
     } catch (e) {
       debugPrint(e.toString());
     }

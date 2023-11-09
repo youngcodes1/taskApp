@@ -42,6 +42,8 @@ dependencies:
   intl:
   flutter_slidable:
   syncfusion_flutter_charts:
+  shimmer:
+  date_picker_timeline:
 
 dev_dependencies:
   flutter_test:
