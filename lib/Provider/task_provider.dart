@@ -67,22 +67,21 @@ class TaskProvider extends ChangeNotifier {
     }
   }
 
-  Future<List<Task>> fetchTasksForToday() async {
+  Future<void> fetchTasksForToday() async {
     try {
       _loading = true;
-      final today = DateTime.now();
-      final formattedDate = DateFormat('yyyy-MM-dd').format(today);
-      List<Task> taskMaps =
-          await _taskDatabaseHelper.getTodaysTask(formattedDate);
+      // final today = DateTime.now();
+      // final formattedDate = DateFormat('yyyy-MM-dd').format(today);
+      List<Task> taskMaps = await _taskDatabaseHelper.getTodaysTask();
       _taskAddedToday = taskMaps
           .map((taskMap) => Task.fromMap(taskMap as Map<String, dynamic>))
           .toList();
       _loading = false;
       notifyListeners();
-      return _taskAddedToday;
+      // return _taskAddedToday;
     } catch (e) {
       debugPrint(e.toString());
-      return [];
+      // return [];
     }
   }
 

@@ -60,12 +60,15 @@ class TaskDatabaseHelper {
   //   return await db.query('tasks');
   // }
 
-  Future<List<Task>> getTodaysTask(String date) async {
+  Future<List<Task>> getTodaysTask() async {
     final db = await database;
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
     final List<Map<String, dynamic>> maps = await db.query(
       'tasks',
       where: 'createdDate = ?',
-      whereArgs: [date],
+      // whereArgs: [date],
+      whereArgs: [today.toLocal().toString()],
     );
     return List.generate(maps.length, (i) {
       return Task.fromMap(maps[i]);

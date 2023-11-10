@@ -5,7 +5,7 @@ class Task {
   final String category;
   final String createdDate;
   final String createdTime;
-  final int? isCompleted;
+  final bool? isCompleted;
   final int? color;
 
   Task(

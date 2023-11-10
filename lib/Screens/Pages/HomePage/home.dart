@@ -6,6 +6,7 @@ import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:taskmasta/Provider/bottomnav_provider.dart';
+import 'package:taskmasta/Provider/task_provider.dart';
 import 'package:taskmasta/Provider/utils_provider.dart';
 import 'package:taskmasta/Screens/Pages/TaskPages/add_task.dart';
 
@@ -16,6 +17,7 @@ import '../../../Widgets/chart.dart';
 import '../../../Widgets/custom_appbar.dart';
 import '../../../Widgets/task_card.dart';
 import '../../../Widgets/today_task_card.dart';
+import '../TaskPages/update_task.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -76,6 +78,8 @@ class _HomePageState extends State<HomePage> {
     final userprovider = Provider.of<UserProvider>(context);
     final bottomprovider = Provider.of<BottomNavProvider>(context);
     final utilsprovider = Provider.of<UtilsProvider>(context);
+    final taskprovider = Provider.of<TaskProvider>(context);
+    int totalTasks = taskprovider.tasks.length;
     return Scaffold(
       appBar: const CustomAppBar(
         backgroundColor: Colors.purple,
@@ -195,20 +199,21 @@ class _HomePageState extends State<HomePage> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      child: const Column(
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "3",
-                            style: TextStyle(
+                            // "3",
+                            totalTasks.toString(),
+                            style: const TextStyle(
                                 fontSize: 18,
                                 color: Colors.blue,
                                 fontWeight: FontWeight.bold),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
-                          Text(
+                          const Text(
                             "Todo",
                             style: TextStyle(fontSize: 17, color: Colors.white),
                           )
@@ -303,7 +308,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               // const TaskCard(),
-              TodayTaskCard(),
+              const TodayTaskCard(),
             ],
           ))
         ],

@@ -16,7 +16,7 @@ class _TodayTaskCardState extends State<TodayTaskCard> {
   @override
   void initState() {
     super.initState();
-    Provider.of<TaskProvider>(context, listen: false).fetchAllTasks();
+    Provider.of<TaskProvider>(context, listen: false).fetchTasksForToday();
   }
 
   @override

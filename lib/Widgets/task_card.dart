@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:taskmasta/Widgets/task_card_shimmer.dart';
 
 import '../Provider/task_provider.dart';
+import '../Screens/Pages/TaskPages/update_task.dart';
 
 class TaskCard extends StatefulWidget {
   const TaskCard({super.key});
@@ -20,6 +21,15 @@ class _TaskCardState extends State<TaskCard> {
   void initState() {
     super.initState();
     Provider.of<TaskProvider>(context, listen: false).fetchAllTasks();
+  }
+
+  void _showDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return UpdateTask();
+      },
+    );
   }
 
   @override
@@ -51,6 +61,24 @@ class _TaskCardState extends State<TaskCard> {
                 endActionPane: ActionPane(
                   motion: const BehindMotion(),
                   children: [
+                    SlidableAction(
+                      onPressed: (context) => {
+                        _showDialog(context),
+                        // QuickAlert.show(
+                        //   context: context,
+                        //   type: QuickAlertType.confirm,
+                        //   headerBackgroundColor: Colors.purple,
+                        //   text: 'You want to mark as completed',
+                        //   confirmBtnText: 'Yes',
+                        //   cancelBtnText: 'No',
+                        //   confirmBtnColor: Colors.green,
+                        //   onConfirmBtnTap: () {},
+                        // )
+                      },
+                      icon: Icons.edit,
+                      label: 'Edit',
+                      backgroundColor: Colors.blue,
+                    ),
                     SlidableAction(
                       onPressed: (context) => {
                         QuickAlert.show(
@@ -119,6 +147,7 @@ class _TaskCardState extends State<TaskCard> {
                                 ),
                                 const Text(
                                   'Todo', // Customize this part
+                                  // task.isCompleted?'Completed':'Todo',
                                   style: TextStyle(
                                       fontSize: 18, color: Colors.orange),
                                 ),
