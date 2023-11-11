@@ -83,6 +83,7 @@ class TaskDatabaseHelper {
       where: 'id =?',
       whereArgs: [task.id],
     );
+    getAllTasks();
   }
 
   deleteTask(int id) async {

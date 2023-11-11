@@ -14,7 +14,7 @@ class _AllTasksState extends State<AllTasks> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: 3,
+        length: 2,
         child: Scaffold(
           body: Column(
             children: [
@@ -38,13 +38,16 @@ class _AllTasksState extends State<AllTasks> {
                 ),
                 tabs: const [
                   Tab(text: 'Todo'),
-                  Tab(text: 'Ongoing'),
+                  // Tab(text: 'Ongoing'),
                   Tab(text: 'Completed'),
                 ],
               ),
               const Expanded(
-                child: TabBarView(
-                    children: [TodoPage(), OngoingPage(), CompletedPage()]),
+                child: TabBarView(children: [
+                  TodoPage(),
+                  //  OngoingPage(),
+                  CompletedPage()
+                ]),
               ),
             ],
           ),

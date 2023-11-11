@@ -6,6 +6,7 @@ import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:taskmasta/Widgets/task_card_shimmer.dart';
 
+import '../Models/task_model.dart';
 import '../Provider/task_provider.dart';
 import '../Screens/Pages/TaskPages/update_task.dart';
 
@@ -23,11 +24,12 @@ class _TaskCardState extends State<TaskCard> {
     Provider.of<TaskProvider>(context, listen: false).fetchAllTasks();
   }
 
-  void _showDialog(BuildContext context) {
+  void _showDialog(BuildContext context, Task task) {
     showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (BuildContext context) {
-        return UpdateTask();
+        return UpdateTask(task: task);
       },
     );
   }
@@ -63,7 +65,7 @@ class _TaskCardState extends State<TaskCard> {
                   children: [
                     SlidableAction(
                       onPressed: (context) => {
-                        _showDialog(context),
+                        _showDialog(context, task),
                         // QuickAlert.show(
                         //   context: context,
                         //   type: QuickAlertType.confirm,
@@ -164,25 +166,27 @@ class _TaskCardState extends State<TaskCard> {
                             const SizedBox(
                               height: 20,
                             ),
-                            const Row(
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(
                                   children: [
-                                    Text(
-                                      'Due - ',
+                                    const Text(
+                                      'Date - ',
                                       style: TextStyle(
                                           fontSize: 18, color: Colors.blue),
                                     ),
                                     Text(
-                                      '23/09/23',
-                                      style: TextStyle(fontSize: 18),
+                                      // '23/09/23',
+                                      task.createdDate,
+                                      style: const TextStyle(fontSize: 18),
                                     ),
                                   ],
                                 ),
                                 Text(
-                                  '10:23',
-                                  style: TextStyle(
+                                  // '10:23',
+                                  task.createdTime,
+                                  style: const TextStyle(
                                       color: Colors.green,
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),

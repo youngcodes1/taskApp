@@ -14,6 +14,13 @@ class TaskProvider extends ChangeNotifier {
   List<Task> get tasks => _tasks;
   List<Task> _taskAddedToday = [];
   List<Task> get taskAddedToday => _taskAddedToday;
+  List<Task> _filteredTasks = [];
+  List<Task> get filteredTasks => _filteredTasks;
+  int _totalTasks = 0;
+  int get totalTasks => _totalTasks;
+
+  int _todayTasks = 0;
+  int get todayTasks => _todayTasks;
 
   bool _loading = false;
   bool get loading => _loading;
@@ -85,36 +92,34 @@ class TaskProvider extends ChangeNotifier {
     }
   }
 
-  updateTasks(String title, String description, String category,
+  updateTasks(int? id, String title, String description, String category,
       String createdDate, String createdTime) async {
     try {
       _loading = true;
       notifyListeners();
-      // final currentTime = DateTime.now();
+
       final updatedTask = Task(
+        id: id,
         title: title,
         description: description,
         category: category,
         createdDate: createdDate,
         createdTime: createdTime,
       );
-      bool updated = await _taskDatabaseHelper.updateTask(updatedTask);
+
+      await _taskDatabaseHelper.updateTask(updatedTask);
       _loading = false;
       notifyListeners();
-      if (updated) {
-        QuickAlert.show(
-          context: Get.context!,
-          type: QuickAlertType.success,
-          text: 'Task updtaed Successfully!',
-        );
-      } else {
-        QuickAlert.show(
-          context: Get.context!,
-          type: QuickAlertType.error,
-          title: 'Oops...',
-          text: 'Sorry, an error occured',
-        );
-      }
+
+      QuickAlert.show(
+        context: Get.context!,
+        type: QuickAlertType.success,
+        text: 'Task updtaed Successfully!',
+      );
+
+      fetchAllTasks();
+      notifyListeners();
+
       notifyListeners();
     } catch (e) {
       debugPrint(e.toString());
@@ -134,6 +139,34 @@ class TaskProvider extends ChangeNotifier {
         type: QuickAlertType.success,
         text: 'Task deleted Successfully!',
       );
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  searchTasks(String query) {
+    try {
+      _filteredTasks = _tasks
+          .where((task) =>
+              task.title.toLowerCase().contains(query.toLowerCase()) ||
+              task.description.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+      notifyListeners();
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  Future<void> updateTaskCounts() async {
+    try {
+      final taskDatabaseHelper = TaskDatabaseHelper.instance;
+      final List<Task> allTasks = await taskDatabaseHelper.getAllTasks();
+      final List<Task> todayTasks = await taskDatabaseHelper.getTodaysTask();
+
+      _totalTasks = allTasks.length;
+      _todayTasks = todayTasks.length;
+
+      notifyListeners();
     } catch (e) {
       debugPrint(e.toString());
     }

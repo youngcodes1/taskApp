@@ -80,6 +80,7 @@ class _HomePageState extends State<HomePage> {
     final utilsprovider = Provider.of<UtilsProvider>(context);
     final taskprovider = Provider.of<TaskProvider>(context);
     int totalTasks = taskprovider.tasks.length;
+    int todayTasks = taskprovider.taskAddedToday.length;
     return Scaffold(
       appBar: const CustomAppBar(
         backgroundColor: Colors.purple,
@@ -204,7 +205,7 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           Text(
                             // "3",
-                            totalTasks.toString(),
+                            todayTasks.toString(),
                             style: const TextStyle(
                                 fontSize: 18,
                                 color: Colors.blue,
@@ -214,7 +215,7 @@ class _HomePageState extends State<HomePage> {
                             height: 10,
                           ),
                           const Text(
-                            "Todo",
+                            "Today's Tasks",
                             style: TextStyle(fontSize: 17, color: Colors.white),
                           )
                         ],
@@ -231,21 +232,23 @@ class _HomePageState extends State<HomePage> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      child: const Column(
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "5",
-                            style: TextStyle(
+                            // "5",
+                            totalTasks.toString(),
+
+                            style: const TextStyle(
                                 fontSize: 18,
                                 color: Colors.yellow,
                                 fontWeight: FontWeight.bold),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
-                          Text(
-                            "Ongoing",
+                          const Text(
+                            "All Tasks",
                             style: TextStyle(fontSize: 17, color: Colors.white),
                           )
                         ],
@@ -276,7 +279,7 @@ class _HomePageState extends State<HomePage> {
                             height: 10,
                           ),
                           Text(
-                            "Completed",
+                            "Completed Tasks",
                             style: TextStyle(fontSize: 17, color: Colors.white),
                           )
                         ],
