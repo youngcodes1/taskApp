@@ -15,8 +15,8 @@ class TodayTaskCard extends StatefulWidget {
 class _TodayTaskCardState extends State<TodayTaskCard> {
   @override
   void initState() {
-    super.initState();
     Provider.of<TaskProvider>(context, listen: false).fetchTasksForToday();
+    super.initState();
   }
 
   @override
@@ -71,11 +71,11 @@ class _TodayTaskCardState extends State<TodayTaskCard> {
                                     style: const TextStyle(
                                         fontSize: 18, color: Colors.blue),
                                   ),
-                                  Text(
-                                    // 'Todo',
+                                  const Text(
+                                    'Today',
                                     // // Customize this part
-                                    task.description,
-                                    style: const TextStyle(
+
+                                    style: TextStyle(
                                         fontSize: 18, color: Colors.orange),
                                   ),
                                 ],
@@ -83,33 +83,36 @@ class _TodayTaskCardState extends State<TodayTaskCard> {
                               const SizedBox(
                                 height: 20,
                               ),
-                              const Text(
-                                'coding on mondays',
-                                style: TextStyle(fontSize: 18),
+                              Text(
+                                // 'coding on mondays',
+                                task.description,
+                                style: const TextStyle(fontSize: 18),
                               ),
                               const SizedBox(
                                 height: 20,
                               ),
-                              const Row(
+                              Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: [
-                                      Text(
+                                      const Text(
                                         'Due - ',
                                         style: TextStyle(
                                             fontSize: 18, color: Colors.blue),
                                       ),
                                       Text(
-                                        '23/09/23',
-                                        style: TextStyle(fontSize: 18),
+                                        // '23/09/23',
+                                        task.createdDate,
+                                        style: const TextStyle(fontSize: 18),
                                       ),
                                     ],
                                   ),
                                   Text(
-                                    '10:23',
-                                    style: TextStyle(
+                                    // '10:23',
+                                    task.createdTime,
+                                    style: const TextStyle(
                                         color: Colors.green,
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold),

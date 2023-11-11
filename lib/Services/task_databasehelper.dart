@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -49,27 +50,25 @@ class TaskDatabaseHelper {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query(
       'tasks',
+      orderBy: 'createdDate DESC, createdTime DESC',
     );
     return List.generate(maps.length, (i) {
       return Task.fromMap(maps[i]);
     });
   }
 
-  // Future<List<Map<String, dynamic>>> getAllTasks() async {
-  //   final db = await database;
-  //   return await db.query('tasks');
-  // }
-
   Future<List<Task>> getTodaysTask() async {
     final db = await database;
     final now = DateTime.now();
-    final today = DateTime(now.year, now.month, now.day);
+    final today = DateFormat('yyyy-MM-dd').format(now);
+
     final List<Map<String, dynamic>> maps = await db.query(
       'tasks',
       where: 'createdDate = ?',
-      // whereArgs: [date],
-      whereArgs: [today.toLocal().toString()],
+      whereArgs: [today],
+      orderBy: 'createdTime DESC',
     );
+
     return List.generate(maps.length, (i) {
       return Task.fromMap(maps[i]);
     });

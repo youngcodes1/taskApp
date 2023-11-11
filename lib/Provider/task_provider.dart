@@ -16,11 +16,14 @@ class TaskProvider extends ChangeNotifier {
   List<Task> get taskAddedToday => _taskAddedToday;
   List<Task> _filteredTasks = [];
   List<Task> get filteredTasks => _filteredTasks;
-  int _totalTasks = 0;
-  int get totalTasks => _totalTasks;
+  // int _totalTasks = 0;
+  // int get totalTasks => _totalTasks;
 
-  int _todayTasks = 0;
-  int get todayTasks => _todayTasks;
+  // int _todayTasks = 0;
+  // int get todayTasks => _todayTasks;
+
+  int totalTasks = 0;
+  int todayTasks = 0;
 
   bool _loading = false;
   bool get loading => _loading;
@@ -74,21 +77,17 @@ class TaskProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> fetchTasksForToday() async {
+  Future<List<Task>> fetchTasksForToday() async {
     try {
       _loading = true;
-      // final today = DateTime.now();
-      // final formattedDate = DateFormat('yyyy-MM-dd').format(today);
-      List<Task> taskMaps = await _taskDatabaseHelper.getTodaysTask();
-      _taskAddedToday = taskMaps
-          .map((taskMap) => Task.fromMap(taskMap as Map<String, dynamic>))
-          .toList();
-      _loading = false;
       notifyListeners();
-      // return _taskAddedToday;
+      final List<Task> todayTasks = await _taskDatabaseHelper.getAllTasks();
+      _taskAddedToday = todayTasks;
+      _loading = false;
+      return todayTasks;
     } catch (e) {
       debugPrint(e.toString());
-      // return [];
+      return [];
     }
   }
 
@@ -157,14 +156,12 @@ class TaskProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> updateTaskCounts() async {
+  Future<void> fetchTaskCounts() async {
     try {
-      final taskDatabaseHelper = TaskDatabaseHelper.instance;
-      final List<Task> allTasks = await taskDatabaseHelper.getAllTasks();
-      final List<Task> todayTasks = await taskDatabaseHelper.getTodaysTask();
-
-      _totalTasks = allTasks.length;
-      _todayTasks = todayTasks.length;
+      await fetchAllTasks();
+      await fetchTasksForToday();
+      totalTasks = _tasks.length;
+      todayTasks = _taskAddedToday.length;
 
       notifyListeners();
     } catch (e) {

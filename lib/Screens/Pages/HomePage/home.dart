@@ -63,14 +63,17 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
+    // fetchTaskCounts();
     data = [
-      ChartData('Todo', 25, color: Colors.orange),
-      ChartData('Ongoing', 38, color: Colors.blue),
+      ChartData('Today', 25, color: Colors.orange),
+      ChartData('All Tasks', 38, color: Colors.blue),
       ChartData('Completed', 34, color: Colors.green),
     ];
     _tooltip = TooltipBehavior(enable: true);
 
     getUser();
+
+    Provider.of<TaskProvider>(context, listen: false).fetchTaskCounts();
   }
 
   @override
@@ -205,7 +208,8 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           Text(
                             // "3",
-                            todayTasks.toString(),
+                            // todayTasks.toString(),
+                            taskprovider.todayTasks.toString(),
                             style: const TextStyle(
                                 fontSize: 18,
                                 color: Colors.blue,
@@ -237,7 +241,8 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           Text(
                             // "5",
-                            totalTasks.toString(),
+                            // totalTasks.toString(),
+                            taskprovider.totalTasks.toString(),
 
                             style: const TextStyle(
                                 fontSize: 18,

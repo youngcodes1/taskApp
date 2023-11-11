@@ -22,7 +22,7 @@ class _TodoPageState extends State<TodoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      body: ListView(
         children: [
           const SizedBox(
             height: 20,
@@ -41,9 +41,7 @@ class _TodoPageState extends State<TodoPage> {
               hintText: 'Search Task',
             ),
           ),
-          Expanded(
-            child: ListView(children: const [TaskCard()]),
-          ),
+          const TaskCard(),
         ],
       ),
     );

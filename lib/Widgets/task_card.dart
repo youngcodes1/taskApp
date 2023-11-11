@@ -20,8 +20,8 @@ class TaskCard extends StatefulWidget {
 class _TaskCardState extends State<TaskCard> {
   @override
   void initState() {
-    super.initState();
     Provider.of<TaskProvider>(context, listen: false).fetchAllTasks();
+    super.initState();
   }
 
   void _showDialog(BuildContext context, Task task) {
@@ -172,7 +172,7 @@ class _TaskCardState extends State<TaskCard> {
                                 Row(
                                   children: [
                                     const Text(
-                                      'Date - ',
+                                      'Due - ',
                                       style: TextStyle(
                                           fontSize: 18, color: Colors.blue),
                                     ),
