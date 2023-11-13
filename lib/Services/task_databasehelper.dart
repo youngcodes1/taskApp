@@ -74,6 +74,21 @@ class TaskDatabaseHelper {
     });
   }
 
+  Future<List<Task>> getTasksForDate(DateTime date) async {
+    final db = await database;
+    final formattedDate = DateFormat('yMMMd').format(date);
+    final List<Map<String, dynamic>> maps = await db.query(
+      'tasks',
+      where: 'createdDate = ?',
+      whereArgs: [formattedDate],
+      orderBy: 'createdTime DESC',
+    );
+
+    return List.generate(maps.length, (i) {
+      return Task.fromMap(maps[i]);
+    });
+  }
+
   Future<List<Task>> getCompletedTasks() async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query(

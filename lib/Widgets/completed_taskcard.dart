@@ -135,11 +135,15 @@ class _CompletedCardState extends State<CompletedCard> {
                                   style: const TextStyle(
                                       fontSize: 18, color: Colors.blue),
                                 ),
-                                const Text(
-                                  'Todo', // Customize this part
-                                  // task.isCompleted?'Completed':'Todo',
+                                Text(
+                                  // 'Todo',
+                                  // Customize this part
+                                  task.isCompleted ? 'Completed' : 'Todo',
                                   style: TextStyle(
-                                      fontSize: 18, color: Colors.orange),
+                                      fontSize: 18,
+                                      color: task.isCompleted
+                                          ? Colors.green
+                                          : Colors.orange),
                                 ),
                               ],
                             ),

@@ -18,6 +18,8 @@ class TaskProvider extends ChangeNotifier {
   List<Task> get filteredTasks => _filteredTasks;
   List<Task> _completedTasks = [];
   List<Task> get completedTasks => _completedTasks;
+  List<Task> _tasksForSelectedDate = [];
+  List<Task> get tasksForSelectedDate => _tasksForSelectedDate;
   // int _totalTasks = 0;
   // int get totalTasks => _totalTasks;
 
@@ -216,6 +218,20 @@ class TaskProvider extends ChangeNotifier {
       notifyListeners();
     } catch (e) {
       debugPrint(e.toString());
+    }
+  }
+
+  Future<List<Task>> getTasksForDate(DateTime date) async {
+    try {
+      _loading = true;
+      notifyListeners();
+      final List<Task> tasks = await _taskDatabaseHelper.getTasksForDate(date);
+      _loading = false;
+      return tasks;
+    } catch (e) {
+      debugPrint(e.toString());
+      _loading = false;
+      return [];
     }
   }
 }

@@ -39,7 +39,7 @@ class _AllTasksState extends State<AllTasks> {
                 tabs: const [
                   Tab(text: 'Todo'),
                   // Tab(text: 'Ongoing'),
-                  Tab(text: 'Completed'),
+                  Tab(text: 'All Completed'),
                 ],
               ),
               const Expanded(
