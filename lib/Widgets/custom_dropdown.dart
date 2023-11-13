@@ -20,9 +20,12 @@ class CustomDropdown extends StatelessWidget {
         onCategorySelected(newValue ?? '');
       },
       items: <String?>[
-        'Option 1',
-        'Option 2',
-        'Option 3',
+        'Education',
+        'Finance',
+        'Work',
+        'Religion',
+        'Personal',
+        'Other'
       ].map((String? value) {
         return DropdownMenuItem<String>(
           value: value,

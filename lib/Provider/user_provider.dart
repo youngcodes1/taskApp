@@ -110,7 +110,7 @@ class UserProvider extends ChangeNotifier {
       String? storedUser = prefs.getString('email');
       if (storedUser != null) {
         _user = storedUser;
-        print('User Email: ${user}');
+
         notifyListeners();
       }
     } catch (e) {
