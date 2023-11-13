@@ -78,7 +78,7 @@ class _TaskCardState extends State<TaskCard> {
                         // )
                       },
                       icon: Icons.edit,
-                      label: 'Edit',
+                      // label: 'Edit',
                       backgroundColor: Colors.blue,
                     ),
                     SlidableAction(
@@ -98,7 +98,7 @@ class _TaskCardState extends State<TaskCard> {
                         )
                       },
                       icon: Icons.delete,
-                      label: 'Delete',
+                      // label: 'Delete',
                       backgroundColor: Colors.red,
                     ),
                     SlidableAction(
@@ -118,7 +118,7 @@ class _TaskCardState extends State<TaskCard> {
                         )
                       },
                       icon: Icons.verified,
-                      label: 'Completed',
+                      // label: 'Completed',
                       backgroundColor: Colors.green,
                     ),
                   ],
@@ -130,8 +130,8 @@ class _TaskCardState extends State<TaskCard> {
                     elevation: 10,
                     shadowColor: Colors.purple,
                     child: Container(
-                      height: MediaQuery.of(context).size.height * 0.2,
-                      width: MediaQuery.of(context).size.width * 0.8,
+                      // height: MediaQuery.of(context).size.height * 0.2,
+                      // width: MediaQuery.of(context).size.width * 0.8,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20),

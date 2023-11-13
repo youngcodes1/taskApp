@@ -259,7 +259,7 @@ class _UpdateTaskState extends State<UpdateTask> {
                       Row(
                         children: [
                           SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.3,
+                            width: MediaQuery.of(context).size.width * 0.26,
                             child: CustomButton(
                               label: 'Close',
                               onPressed: () {
@@ -269,10 +269,10 @@ class _UpdateTaskState extends State<UpdateTask> {
                             ),
                           ),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.12,
+                            width: MediaQuery.of(context).size.width * 0.17,
                           ),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.3,
+                            width: MediaQuery.of(context).size.width * 0.26,
                             child: CustomButton(
                               label: 'Update',
                               onPressed: () {

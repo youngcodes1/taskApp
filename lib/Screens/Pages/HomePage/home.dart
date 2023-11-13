@@ -169,7 +169,8 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(
             height: 20,
           ),
-          Column(
+          Expanded(
+              child: ListView(
             children: [
               SizedBox(
                 child: Card(
@@ -185,123 +186,121 @@ class _HomePageState extends State<HomePage> {
                         child: SizedBox(
                             height: 180, width: 180, child: Chart(data)))),
               ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 20.0),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  SizedBox(
-                    height: 100,
-                    width: 200,
-                    child: Card(
-                      shadowColor: Colors.orange,
-                      elevation: 10,
-                      color: Colors.orange,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            // "3",
-                            // todayTasks.toString(),
-                            taskprovider.todayTasks.toString(),
-                            style: const TextStyle(
-                                fontSize: 18,
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        height: 100,
+                        width: 200,
+                        child: Card(
+                          shadowColor: Colors.orange,
+                          elevation: 10,
+                          color: Colors.orange,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
                           ),
-                          const SizedBox(
-                            height: 10,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                // "3",
+                                // todayTasks.toString(),
+                                taskprovider.todayTasks.toString(),
+                                style: const TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.blue,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              const Text(
+                                "Today's Tasks",
+                                style: TextStyle(
+                                    fontSize: 17, color: Colors.white),
+                              )
+                            ],
                           ),
-                          const Text(
-                            "Today's Tasks",
-                            style: TextStyle(fontSize: 17, color: Colors.white),
-                          )
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 100,
-                    width: 200,
-                    child: Card(
-                      shadowColor: Colors.blue,
-                      elevation: 10,
-                      color: Colors.blue,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            // "5",
-                            // totalTasks.toString(),
-                            taskprovider.totalTasks.toString(),
+                      SizedBox(
+                        height: 100,
+                        width: 200,
+                        child: Card(
+                          shadowColor: Colors.blue,
+                          elevation: 10,
+                          color: Colors.blue,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                // "5",
+                                // totalTasks.toString(),
+                                taskprovider.totalTasks.toString(),
 
-                            style: const TextStyle(
-                                fontSize: 18,
-                                color: Colors.yellow,
-                                fontWeight: FontWeight.bold),
+                                style: const TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.yellow,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              const Text(
+                                "All Tasks",
+                                style: TextStyle(
+                                    fontSize: 17, color: Colors.white),
+                              )
+                            ],
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const Text(
-                            "All Tasks",
-                            style: TextStyle(fontSize: 17, color: Colors.white),
-                          )
-                        ],
+                        ),
                       ),
-                    ),
+                      SizedBox(
+                        height: 100,
+                        width: 200,
+                        child: Card(
+                          shadowColor: Colors.green,
+                          elevation: 10,
+                          color: Colors.green,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                // "4",
+                                taskprovider.completeTasks.toString(),
+                                style: const TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.orange,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              const Text(
+                                "Completed Tasks",
+                                style: TextStyle(
+                                    fontSize: 17, color: Colors.white),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    height: 100,
-                    width: 200,
-                    child: Card(
-                      shadowColor: Colors.green,
-                      elevation: 10,
-                      color: Colors.green,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            // "4",
-                            taskprovider.completeTasks.toString(),
-                            style: const TextStyle(
-                                fontSize: 18,
-                                color: Colors.orange,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const Text(
-                            "Completed Tasks",
-                            style: TextStyle(fontSize: 17, color: Colors.white),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.05,
-          ),
-          Expanded(
-              child: ListView(
-            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.05,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 child: Row(
@@ -317,9 +316,9 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               // const TaskCard(),
-              const TodayTaskCard(),
+              const TodayTaskCard()
             ],
-          ))
+          )),
         ],
       ),
       floatingActionButton: FloatingActionButton(

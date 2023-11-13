@@ -221,6 +221,11 @@ class TaskProvider extends ChangeNotifier {
     }
   }
 
+  // bool isTaskOverdue(Task task){
+  //    final now = DateTime.now();
+  //   return !task.isCompleted && task.createdDate.isBefore()
+  // }
+
   Future<List<Task>> getTasksForDate(DateTime date) async {
     try {
       _loading = true;
