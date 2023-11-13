@@ -1,37 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
-import 'package:provider/provider.dart';
 import 'package:taskmasta/Widgets/task_card_shimmer.dart';
 
-import '../Models/task_model.dart';
 import '../Provider/task_provider.dart';
-import '../Screens/Pages/TaskPages/update_task.dart';
 
-class TaskCard extends StatefulWidget {
-  const TaskCard({super.key});
+class CompletedCard extends StatefulWidget {
+  const CompletedCard({super.key});
 
   @override
-  State<TaskCard> createState() => _TaskCardState();
+  State<CompletedCard> createState() => _CompletedCardState();
 }
 
-class _TaskCardState extends State<TaskCard> {
+class _CompletedCardState extends State<CompletedCard> {
   @override
   void initState() {
-    Provider.of<TaskProvider>(context, listen: false).fetchAllTasks();
+    Provider.of<TaskProvider>(context, listen: false).fetchCompletedTasks();
     super.initState();
-  }
-
-  void _showDialog(BuildContext context, Task task) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return UpdateTask(task: task);
-      },
-    );
   }
 
   @override
@@ -42,16 +30,16 @@ class _TaskCardState extends State<TaskCard> {
       builder: (context, taskProvider, child) {
         if (taskProvider.loading) {
           return const TaskShimmer();
-        } else if (taskProvider.tasks.isEmpty) {
+        } else if (taskProvider.completedTasks.isEmpty) {
           return const Center(
               child: Text(
-            'no tasks available',
+            'no task completed',
             style: TextStyle(
               fontSize: 16,
             ),
           ));
         } else {
-          final tasks = taskProvider.tasks;
+          final tasks = taskProvider.completedTasks;
 
           return ListView.builder(
             shrinkWrap: true,
@@ -65,7 +53,7 @@ class _TaskCardState extends State<TaskCard> {
                   children: [
                     SlidableAction(
                       onPressed: (context) => {
-                        _showDialog(context, task),
+                        // _showDialog(context, task),
                         // QuickAlert.show(
                         //   context: context,
                         //   type: QuickAlertType.confirm,
@@ -111,10 +99,7 @@ class _TaskCardState extends State<TaskCard> {
                           confirmBtnText: 'Yes',
                           cancelBtnText: 'No',
                           confirmBtnColor: Colors.green,
-                          onConfirmBtnTap: () {
-                            Get.back();
-                            taskprovider.markCompleted(index);
-                          },
+                          onConfirmBtnTap: () {},
                         )
                       },
                       icon: Icons.verified,
@@ -150,15 +135,11 @@ class _TaskCardState extends State<TaskCard> {
                                   style: const TextStyle(
                                       fontSize: 18, color: Colors.blue),
                                 ),
-                                Text(
-                                  // 'Todo',
-                                  // Customize this part
-                                  task.isCompleted ? 'Completed' : 'Todo',
+                                const Text(
+                                  'Todo', // Customize this part
+                                  // task.isCompleted?'Completed':'Todo',
                                   style: TextStyle(
-                                      fontSize: 18,
-                                      color: task.isCompleted
-                                          ? Colors.green
-                                          : Colors.orange),
+                                      fontSize: 18, color: Colors.orange),
                                 ),
                               ],
                             ),
@@ -194,7 +175,7 @@ class _TaskCardState extends State<TaskCard> {
                                   // '10:23',
                                   task.createdTime,
                                   style: const TextStyle(
-                                      color: Colors.purple,
+                                      color: Colors.green,
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),

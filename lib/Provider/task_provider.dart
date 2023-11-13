@@ -16,6 +16,8 @@ class TaskProvider extends ChangeNotifier {
   List<Task> get taskAddedToday => _taskAddedToday;
   List<Task> _filteredTasks = [];
   List<Task> get filteredTasks => _filteredTasks;
+  List<Task> _completedTasks = [];
+  List<Task> get completedTasks => _completedTasks;
   // int _totalTasks = 0;
   // int get totalTasks => _totalTasks;
 
@@ -24,6 +26,7 @@ class TaskProvider extends ChangeNotifier {
 
   int totalTasks = 0;
   int todayTasks = 0;
+  int completeTasks = 0;
 
   bool _loading = false;
   bool get loading => _loading;
@@ -33,13 +36,12 @@ class TaskProvider extends ChangeNotifier {
     try {
       _loading = true;
       notifyListeners();
-      // final currentTime = DateTime.now();
-
+      final DateTime parsedDate = DateFormat('yMMMd').parse(createdDate);
       final newTask = Task(
         title: title,
         description: description,
         category: category,
-        createdDate: createdDate,
+        createdDate: DateFormat('yMMMd').format(parsedDate),
         createdTime: createdTime,
       );
       // bool inserted =
@@ -81,7 +83,7 @@ class TaskProvider extends ChangeNotifier {
     try {
       _loading = true;
       notifyListeners();
-      final List<Task> todayTasks = await _taskDatabaseHelper.getAllTasks();
+      final List<Task> todayTasks = await _taskDatabaseHelper.getTodaysTask();
       _taskAddedToday = todayTasks;
       _loading = false;
       return todayTasks;
@@ -156,13 +158,61 @@ class TaskProvider extends ChangeNotifier {
     }
   }
 
+  markCompleted(int index) async {
+    try {
+      // Set the completion status to true
+      _tasks[index].isCompleted = true;
+
+      // Update the task in the database
+      await _taskDatabaseHelper.updateTask(_tasks[index]);
+
+      // Move the completed task to the _completedTasks list
+      _completedTasks.add(_tasks[index]);
+
+      // Remove the completed task from the main tasks list
+      // _tasks.removeAt(index);
+
+      QuickAlert.show(
+        context: Get.context!,
+        type: QuickAlertType.success,
+        text: 'Task Completed!',
+      );
+      notifyListeners();
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  fetchCompletedTasks() async {
+    try {
+      _loading = true;
+      notifyListeners();
+      _completedTasks = await _taskDatabaseHelper.getCompletedTasks();
+      _loading = false;
+      notifyListeners();
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
   Future<void> fetchTaskCounts() async {
     try {
       await fetchAllTasks();
       await fetchTasksForToday();
+
       totalTasks = _tasks.length;
       todayTasks = _taskAddedToday.length;
 
+      notifyListeners();
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  completetaskCount() async {
+    try {
+      await fetchCompletedTasks();
+      completeTasks = _completedTasks.length;
       notifyListeners();
     } catch (e) {
       debugPrint(e.toString());

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:taskmasta/Widgets/completed_taskcard.dart';
+
 class CompletedPage extends StatefulWidget {
   const CompletedPage({super.key});
 
@@ -10,6 +12,12 @@ class CompletedPage extends StatefulWidget {
 class _CompletedPageState extends State<CompletedPage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      body: ListView(
+        children: const [
+          CompletedCard(),
+        ],
+      ),
+    );
   }
 }

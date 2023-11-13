@@ -74,6 +74,7 @@ class _HomePageState extends State<HomePage> {
     getUser();
 
     Provider.of<TaskProvider>(context, listen: false).fetchTaskCounts();
+    Provider.of<TaskProvider>(context, listen: false).completetaskCount();
   }
 
   @override
@@ -82,8 +83,7 @@ class _HomePageState extends State<HomePage> {
     final bottomprovider = Provider.of<BottomNavProvider>(context);
     final utilsprovider = Provider.of<UtilsProvider>(context);
     final taskprovider = Provider.of<TaskProvider>(context);
-    int totalTasks = taskprovider.tasks.length;
-    int todayTasks = taskprovider.taskAddedToday.length;
+
     return Scaffold(
       appBar: const CustomAppBar(
         backgroundColor: Colors.purple,
@@ -270,20 +270,21 @@ class _HomePageState extends State<HomePage> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      child: const Column(
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "4",
-                            style: TextStyle(
+                            // "4",
+                            taskprovider.completeTasks.toString(),
+                            style: const TextStyle(
                                 fontSize: 18,
                                 color: Colors.orange,
                                 fontWeight: FontWeight.bold),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
-                          Text(
+                          const Text(
                             "Completed Tasks",
                             style: TextStyle(fontSize: 17, color: Colors.white),
                           )

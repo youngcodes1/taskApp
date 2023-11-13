@@ -5,7 +5,7 @@ class Task {
   final String category;
   final String createdDate;
   final String createdTime;
-  final bool? isCompleted;
+  bool isCompleted;
   final int? color;
 
   Task(
@@ -15,7 +15,7 @@ class Task {
       required this.category,
       required this.createdDate,
       required this.createdTime,
-      this.isCompleted,
+      this.isCompleted = false,
       this.color});
 
   Map<String, dynamic> toMap() {
@@ -26,7 +26,7 @@ class Task {
       'category': category,
       'createdDate': createdDate,
       'createdTime': createdTime,
-      'isCompleted': isCompleted,
+      'isCompleted': isCompleted ? 1 : 0,
       'color': color
     };
   }
@@ -39,7 +39,7 @@ class Task {
         category: map['category'],
         createdDate: map['createdDate'],
         createdTime: map['createdTime'],
-        isCompleted: map['isCompleted'],
+        isCompleted: map['isCompleted'] == 1,
         color: map['color']);
   }
 }

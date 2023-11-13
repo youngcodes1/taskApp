@@ -60,7 +60,7 @@ class TaskDatabaseHelper {
   Future<List<Task>> getTodaysTask() async {
     final db = await database;
     final now = DateTime.now();
-    final today = DateFormat('yyyy-MM-dd').format(now);
+    final today = DateFormat('yMMMd').format(now);
 
     final List<Map<String, dynamic>> maps = await db.query(
       'tasks',
@@ -69,6 +69,19 @@ class TaskDatabaseHelper {
       orderBy: 'createdTime DESC',
     );
 
+    return List.generate(maps.length, (i) {
+      return Task.fromMap(maps[i]);
+    });
+  }
+
+  Future<List<Task>> getCompletedTasks() async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      'tasks',
+      where: 'isCompleted = ?',
+      whereArgs: [1],
+      orderBy: 'createdDate DESC, createdTime DESC',
+    );
     return List.generate(maps.length, (i) {
       return Task.fromMap(maps[i]);
     });
