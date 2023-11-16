@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../Provider/bottomnav_provider.dart';
+import '../Provider/theme_provider.dart';
 
 class BottomNav extends StatefulWidget {
   const BottomNav({super.key});
@@ -14,11 +15,13 @@ class _BottomNavState extends State<BottomNav> {
   @override
   Widget build(BuildContext context) {
     final bottomprovider = context.watch<BottomNavProvider>();
+    final themeprovider = Provider.of<ThemeProvider>(context);
     return Scaffold(
         body: bottomprovider.screens[bottomprovider.currentIndex],
         bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
-            backgroundColor: Colors.white,
+            backgroundColor:
+                themeprovider.isDarkModeEnabled ? Colors.black : Colors.white,
             selectedItemColor: Colors.purple,
             unselectedItemColor: Colors.grey,
             iconSize: 30,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:taskmasta/Widgets/custom_appbar.dart';
 
+import '../../../Provider/theme_provider.dart';
 import '../TabarPages/AllTasksPages/alltasks.dart';
 import '../TabarPages/Report/report.dart';
 
@@ -14,19 +16,22 @@ class PerformancePage extends StatefulWidget {
 class _PerformancePageState extends State<PerformancePage> {
   @override
   Widget build(BuildContext context) {
-    return const DefaultTabController(
+    final themeprovider = Provider.of<ThemeProvider>(context);
+    return DefaultTabController(
       length: 2,
       child: Scaffold(
         appBar: CustomAppBar(
             title: 'Performance',
-            backgroundColor: Colors.purple,
+            backgroundColor: themeprovider.isDarkModeEnabled
+                ? Colors.grey[900] ?? Colors.black
+                : Colors.purple,
             centerTitle: true,
             automaticallyImplyLeading: false,
-            titleTextStyle: TextStyle(
+            titleTextStyle: const TextStyle(
                 fontSize: 25,
                 color: Colors.white,
                 fontWeight: FontWeight.bold)),
-        body: Column(
+        body: const Column(
           children: [
             SizedBox(
               height: 20,

@@ -44,6 +44,7 @@ dependencies:
   syncfusion_flutter_charts:
   shimmer:
   date_picker_timeline:
+  day_night_switcher:
 
 dev_dependencies:
   flutter_test:

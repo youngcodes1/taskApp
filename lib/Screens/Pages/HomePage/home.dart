@@ -12,6 +12,7 @@ import 'package:taskmasta/Screens/Pages/TaskPages/add_task.dart';
 
 import '../../../Models/chart_model.dart';
 import '../../../Provider/chart_provider.dart';
+import '../../../Provider/theme_provider.dart';
 import '../../../Provider/user_provider.dart';
 import '../../../Widgets/chart.dart';
 import '../../../Widgets/custom_appbar.dart';
@@ -83,26 +84,31 @@ class _HomePageState extends State<HomePage> {
     final bottomprovider = Provider.of<BottomNavProvider>(context);
     final utilsprovider = Provider.of<UtilsProvider>(context);
     final taskprovider = Provider.of<TaskProvider>(context);
+    final themeprovider = Provider.of<ThemeProvider>(context);
 
     return Scaffold(
-      appBar: const CustomAppBar(
-        backgroundColor: Colors.purple,
+      appBar: CustomAppBar(
+        backgroundColor: themeprovider.isDarkModeEnabled
+            ? Colors.grey[900] ?? Colors.black
+            : Colors.purple,
         title: 'Dashboard',
-        leading: Icon(
+        leading: const Icon(
           Icons.task,
           size: 30,
           color: Colors.white,
         ),
         centerTitle: true,
-        titleTextStyle: TextStyle(
+        titleTextStyle: const TextStyle(
             fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold),
       ),
       body: Column(
         children: [
           Container(
-            decoration: const BoxDecoration(
-                color: Colors.purple,
-                borderRadius: BorderRadius.only(
+            decoration: BoxDecoration(
+                color: themeprovider.isDarkModeEnabled
+                    ? Colors.grey[900] ?? Colors.black
+                    : Colors.purple,
+                borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(20),
                     bottomRight: Radius.circular(20))),
             // height: 125,
@@ -175,12 +181,16 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 child: Card(
                     elevation: 10,
-                    shadowColor: Colors.purple,
+                    shadowColor: themeprovider.isDarkModeEnabled
+                        ? Colors.black
+                        : Colors.purple,
                     child: Container(
                         height: MediaQuery.of(context).size.height * 0.18,
                         width: MediaQuery.of(context).size.width * 0.9,
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: themeprovider.isDarkModeEnabled
+                              ? Colors.black
+                              : Colors.white,
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: SizedBox(

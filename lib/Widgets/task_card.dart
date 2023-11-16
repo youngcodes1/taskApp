@@ -8,6 +8,7 @@ import 'package:taskmasta/Widgets/task_card_shimmer.dart';
 
 import '../Models/task_model.dart';
 import '../Provider/task_provider.dart';
+import '../Provider/theme_provider.dart';
 import '../Screens/Pages/TaskPages/update_task.dart';
 
 class TaskCard extends StatefulWidget {
@@ -37,6 +38,7 @@ class _TaskCardState extends State<TaskCard> {
   @override
   Widget build(BuildContext context) {
     final taskprovider = Provider.of<TaskProvider>(context);
+    final themeprovider = Provider.of<ThemeProvider>(context);
 
     return Consumer<TaskProvider>(
       builder: (context, taskProvider, child) {
@@ -128,12 +130,16 @@ class _TaskCardState extends State<TaskCard> {
                       const EdgeInsets.only(top: 40.0, left: 20, right: 20),
                   child: Card(
                     elevation: 10,
-                    shadowColor: Colors.purple,
+                    shadowColor: themeprovider.isDarkModeEnabled
+                        ? Colors.black
+                        : Colors.purple,
                     child: Container(
                       // height: MediaQuery.of(context).size.height * 0.2,
                       // width: MediaQuery.of(context).size.width * 0.8,
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: themeprovider.isDarkModeEnabled
+                            ? Colors.black
+                            : Colors.white,
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Padding(

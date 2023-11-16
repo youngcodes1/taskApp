@@ -1,5 +1,9 @@
+import 'package:day_night_switcher/day_night_switcher.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:taskmasta/Widgets/custom_appbar.dart';
+
+import '../../../Provider/theme_provider.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -11,17 +15,105 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    final themeprovider = Provider.of<ThemeProvider>(context);
+    return Scaffold(
       appBar: CustomAppBar(
           title: 'Settings',
-          backgroundColor: Colors.purple,
+          backgroundColor: themeprovider.isDarkModeEnabled
+              ? Colors.grey[900] ?? Colors.black
+              : Colors.purple,
           centerTitle: true,
           automaticallyImplyLeading: false,
-          titleTextStyle: TextStyle(
+          titleTextStyle: const TextStyle(
             fontSize: 25,
             color: Colors.white,
             fontWeight: FontWeight.bold,
           )),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 40.0, left: 20, right: 20),
+        child: ListView(
+          children: [
+            Card(
+              elevation: 10,
+              shadowColor: themeprovider.isDarkModeEnabled
+                  ? Colors.black
+                  : Colors.purple,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: themeprovider.isDarkModeEnabled
+                      ? Colors.black
+                      : Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 20.0,
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.person),
+                          Text(
+                            'Silas@gmail.com',
+                            style: TextStyle(fontSize: 16),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+            const Text(
+              'Preferences',
+              style: TextStyle(fontSize: 18),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Card(
+              elevation: 10,
+              shadowColor: themeprovider.isDarkModeEnabled
+                  ? Colors.black
+                  : Colors.purple,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: themeprovider.isDarkModeEnabled
+                      ? Colors.black
+                      : Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 20.0, horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        themeprovider.isDarkModeEnabled
+                            ? 'DarkMode'
+                            : 'LightMode',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                      DayNightSwitcher(
+                        isDarkModeEnabled: themeprovider.isDarkModeEnabled,
+                        onStateChanged: (isDarkModeEnabled) {
+                          themeprovider.toggleTheme();
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

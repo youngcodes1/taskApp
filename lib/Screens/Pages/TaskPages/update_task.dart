@@ -6,6 +6,7 @@ import 'package:taskmasta/Models/task_model.dart';
 import 'package:taskmasta/Widgets/custom_textform.dart';
 
 import '../../../Provider/task_provider.dart';
+import '../../../Provider/theme_provider.dart';
 import '../../../Utils/colors.dart';
 import '../../../Widgets/custom_button.dart';
 import '../../../Widgets/custom_dropdown.dart';
@@ -71,6 +72,7 @@ class _UpdateTaskState extends State<UpdateTask> {
   @override
   Widget build(BuildContext context) {
     final taskprovider = Provider.of<TaskProvider>(context);
+    final themeprovider = Provider.of<ThemeProvider>(context);
     return Center(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 36.0),
