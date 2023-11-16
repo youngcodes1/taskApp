@@ -80,18 +80,20 @@ class _UpdateTaskState extends State<UpdateTask> {
           padding: const EdgeInsets.all(18),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: Colors.white,
+            color: themeprovider.isDarkModeEnabled
+                ? Colors.grey[900] ?? Colors.black
+                : Colors.white,
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Padding(
-                padding: EdgeInsets.all(8.0),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.edit),
-                    SizedBox(
+                    const Icon(Icons.edit),
+                    const SizedBox(
                       width: 5,
                     ),
                     Text(
@@ -99,7 +101,9 @@ class _UpdateTaskState extends State<UpdateTask> {
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: Colors.purple),
+                          color: themeprovider.isDarkModeEnabled
+                              ? Colors.white
+                              : Colors.purple),
                     ),
                   ],
                 ),

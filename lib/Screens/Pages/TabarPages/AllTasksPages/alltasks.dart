@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:taskmasta/Screens/Pages/TabarPages/AllTasksPages/completedpage.dart';
 import 'package:taskmasta/Screens/Pages/TabarPages/AllTasksPages/ongoingpage.dart';
 import 'package:taskmasta/Screens/Pages/TabarPages/AllTasksPages/todopage.dart';
+
+import '../../../../Provider/theme_provider.dart';
 
 class AllTasks extends StatefulWidget {
   const AllTasks({super.key});
@@ -13,6 +16,7 @@ class AllTasks extends StatefulWidget {
 class _AllTasksState extends State<AllTasks> {
   @override
   Widget build(BuildContext context) {
+    final themeprovider = Provider.of<ThemeProvider>(context);
     return DefaultTabController(
         length: 2,
         child: Scaffold(

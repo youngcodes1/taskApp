@@ -156,7 +156,9 @@ class _HomePageState extends State<HomePage> {
                             context: context,
                             type: QuickAlertType.confirm,
                             headerBackgroundColor: Colors.purple,
-                            text: 'you want to logout',
+                            text: themeprovider.isDarkModeEnabled
+                                ? 'Do you want to logout'
+                                : 'you want to logout',
                             confirmBtnText: 'Yes',
                             cancelBtnText: 'No',
                             confirmBtnColor: Colors.green,
@@ -332,7 +334,9 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.purple,
+        backgroundColor: themeprovider.isDarkModeEnabled
+            ? Colors.grey[900] ?? Colors.black
+            : Colors.purple,
         onPressed: () {
           _showCustomBottomSheet(context);
         },

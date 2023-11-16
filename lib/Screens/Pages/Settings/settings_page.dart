@@ -1,6 +1,7 @@
 import 'package:day_night_switcher/day_night_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taskmasta/Widgets/custom_appbar.dart';
 
 import '../../../Provider/theme_provider.dart';
@@ -13,6 +14,28 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  String? user;
+
+  getUser() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      String? storedUser = prefs.getString('email');
+      if (storedUser != null) {
+        setState(() {
+          user = storedUser;
+        });
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  @override
+  void initState() {
+    getUser();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeprovider = Provider.of<ThemeProvider>(context);
@@ -45,21 +68,25 @@ class _SettingsState extends State<Settings> {
                       : Colors.white,
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
                     vertical: 20.0,
                   ),
                   child: Column(
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.person),
-                          Text(
-                            'Silas@gmail.com',
-                            style: TextStyle(fontSize: 16),
-                          )
-                        ],
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                        child: Row(
+                          // mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(Icons.person),
+                            Text(
+                              // 'Silas@gmail.com',
+                              ' $user',
+                              style: const TextStyle(fontSize: 16),
+                            )
+                          ],
+                        ),
                       )
                     ],
                   ),

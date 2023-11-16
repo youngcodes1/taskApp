@@ -38,7 +38,9 @@ class _CalenderPageState extends State<CalenderPage> {
                 height: 100,
                 width: 80,
                 initialSelectedDate: DateTime.now(),
-                selectionColor: Colors.purple,
+                selectionColor: themeprovider.isDarkModeEnabled
+                    ? Colors.black
+                    : Colors.purple,
                 selectedTextColor: Colors.white,
                 dateTextStyle: const TextStyle(
                     color: Colors.grey,

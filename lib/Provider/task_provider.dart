@@ -20,6 +20,8 @@ class TaskProvider extends ChangeNotifier {
   List<Task> get completedTasks => _completedTasks;
   List<Task> _tasksForSelectedDate = [];
   List<Task> get tasksForSelectedDate => _tasksForSelectedDate;
+
+  Brightness currentBrightness = Theme.of(Get.context!).brightness;
   // int _totalTasks = 0;
   // int get totalTasks => _totalTasks;
 
@@ -117,7 +119,8 @@ class TaskProvider extends ChangeNotifier {
       QuickAlert.show(
         context: Get.context!,
         type: QuickAlertType.success,
-        text: 'Task updtaed Successfully!',
+        text: 'Task updated Successfully!',
+        // Light theme text color
       );
 
       fetchAllTasks();

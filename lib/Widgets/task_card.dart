@@ -68,16 +68,6 @@ class _TaskCardState extends State<TaskCard> {
                     SlidableAction(
                       onPressed: (context) => {
                         _showDialog(context, task),
-                        // QuickAlert.show(
-                        //   context: context,
-                        //   type: QuickAlertType.confirm,
-                        //   headerBackgroundColor: Colors.purple,
-                        //   text: 'You want to mark as completed',
-                        //   confirmBtnText: 'Yes',
-                        //   cancelBtnText: 'No',
-                        //   confirmBtnColor: Colors.green,
-                        //   onConfirmBtnTap: () {},
-                        // )
                       },
                       icon: Icons.edit,
                       // label: 'Edit',
@@ -105,19 +95,25 @@ class _TaskCardState extends State<TaskCard> {
                     ),
                     SlidableAction(
                       onPressed: (context) => {
-                        QuickAlert.show(
-                          context: context,
-                          type: QuickAlertType.confirm,
-                          headerBackgroundColor: Colors.purple,
-                          text: 'You want to mark as completed',
-                          confirmBtnText: 'Yes',
-                          cancelBtnText: 'No',
-                          confirmBtnColor: Colors.green,
-                          onConfirmBtnTap: () {
-                            Get.back();
-                            taskprovider.markCompleted(index);
-                          },
-                        )
+                        task.isCompleted
+                            ? QuickAlert.show(
+                                context: Get.context!,
+                                type: QuickAlertType.success,
+                                text: 'Task completed already',
+                              )
+                            : QuickAlert.show(
+                                context: context,
+                                type: QuickAlertType.confirm,
+                                headerBackgroundColor: Colors.purple,
+                                text: 'You want to mark as completed',
+                                confirmBtnText: 'Yes',
+                                cancelBtnText: 'No',
+                                confirmBtnColor: Colors.green,
+                                onConfirmBtnTap: () {
+                                  Get.back();
+                                  taskprovider.markCompleted(index);
+                                },
+                              )
                       },
                       icon: Icons.verified,
                       // label: 'Completed',

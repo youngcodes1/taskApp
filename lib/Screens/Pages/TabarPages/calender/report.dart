@@ -14,7 +14,7 @@ class _ReportPageState extends State<ReportPage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: 2,
+        length: 1,
         child: Scaffold(
           body: Column(
             children: [
@@ -38,13 +38,13 @@ class _ReportPageState extends State<ReportPage> {
                 ),
                 tabs: const [
                   Tab(text: 'Calender'),
-                  Tab(text: 'Graph'),
+                  // Tab(text: 'Graph'),
                 ],
               ),
               const Expanded(
                 child: TabBarView(children: [
                   CalenderPage(),
-                  GraphPage(),
+                  // GraphPage(),
                 ]),
               ),
             ],

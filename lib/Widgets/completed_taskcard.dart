@@ -68,7 +68,7 @@ class _CompletedCardState extends State<CompletedCard> {
                         // )
                       },
                       icon: Icons.edit,
-                      label: 'Edit',
+                      label: '',
                       backgroundColor: Colors.blue,
                     ),
                     SlidableAction(
@@ -88,26 +88,26 @@ class _CompletedCardState extends State<CompletedCard> {
                         )
                       },
                       icon: Icons.delete,
-                      label: 'Delete',
+                      label: '',
                       backgroundColor: Colors.red,
                     ),
-                    SlidableAction(
-                      onPressed: (context) => {
-                        QuickAlert.show(
-                          context: context,
-                          type: QuickAlertType.confirm,
-                          headerBackgroundColor: Colors.purple,
-                          text: 'You want to mark as completed',
-                          confirmBtnText: 'Yes',
-                          cancelBtnText: 'No',
-                          confirmBtnColor: Colors.green,
-                          onConfirmBtnTap: () {},
-                        )
-                      },
-                      icon: Icons.verified,
-                      label: 'Completed',
-                      backgroundColor: Colors.green,
-                    ),
+                    // SlidableAction(
+                    //   onPressed: (context) => {
+                    //     QuickAlert.show(
+                    //       context: context,
+                    //       type: QuickAlertType.confirm,
+                    //       headerBackgroundColor: Colors.purple,
+                    //       text: 'You want to mark as completed',
+                    //       confirmBtnText: 'Yes',
+                    //       cancelBtnText: 'No',
+                    //       confirmBtnColor: Colors.green,
+                    //       onConfirmBtnTap: () {},
+                    //     )
+                    //   },
+                    //   icon: Icons.verified,
+                    //   label: 'Completed',
+                    //   backgroundColor: Colors.green,
+                    // ),
                   ],
                 ),
                 child: Padding(

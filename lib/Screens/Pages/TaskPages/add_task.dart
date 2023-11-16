@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:taskmasta/Widgets/custom_button.dart';
 import '../../../Provider/task_provider.dart';
+import '../../../Provider/theme_provider.dart';
 import '../../../Utils/colors.dart';
 import '../../../Widgets/custom_appbar.dart';
 import '../../../Widgets/custom_dropdown.dart';
@@ -68,11 +69,13 @@ class _AddTaskPageState extends State<AddTaskPage> {
   @override
   Widget build(BuildContext context) {
     final taskprovider = Provider.of<TaskProvider>(context);
+    final themeprovider = Provider.of<ThemeProvider>(context);
     return Scaffold(
         appBar: CustomAppBar(
           title: 'ADD TASK',
           centerTitle: true,
-          backgroundColor: Colors.purple,
+          backgroundColor:
+              themeprovider.isDarkModeEnabled ? Colors.black : Colors.purple,
           iconTheme: const IconThemeData(color: Colors.white),
           leading: IconButton(
               onPressed: () {
